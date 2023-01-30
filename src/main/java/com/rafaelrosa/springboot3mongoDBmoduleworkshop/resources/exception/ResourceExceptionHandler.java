@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.io.Serializable;
+import java.time.Instant;
 
 @ControllerAdvice
 public class ResourceExceptionHandler implements Serializable {
@@ -17,7 +18,7 @@ public class ResourceExceptionHandler implements Serializable {
     public ResponseEntity<StandardError> objectNotFound(ObjectNotFoundException e, HttpServletRequest request){
 
         HttpStatus httpStatus = HttpStatus.NOT_FOUND;
-        StandardError err = new StandardError(System.currentTimeMillis(), httpStatus.value(), "Not found", e.getMessage(), request.getRequestURI());
+        StandardError err = new StandardError(Instant.now(), httpStatus.value(), "Not found", e.getMessage(), request.getRequestURI());
 
         return ResponseEntity.status(httpStatus).body(err);
     }
