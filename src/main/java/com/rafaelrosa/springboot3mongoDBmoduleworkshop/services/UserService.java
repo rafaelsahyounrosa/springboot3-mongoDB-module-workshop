@@ -1,6 +1,7 @@
 package com.rafaelrosa.springboot3mongoDBmoduleworkshop.services;
 
 import com.rafaelrosa.springboot3mongoDBmoduleworkshop.domain.User;
+import com.rafaelrosa.springboot3mongoDBmoduleworkshop.dto.UserDTO;
 import com.rafaelrosa.springboot3mongoDBmoduleworkshop.repositories.UserRepository;
 import com.rafaelrosa.springboot3mongoDBmoduleworkshop.services.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,5 +25,13 @@ public class UserService {
         Optional<User> obj = repo.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException("Object not found"));
 
+    }
+
+    public User insert(User obj){
+        return repo.insert(obj);
+    }
+
+    public User fromDTO(UserDTO objDTO){
+        return new User(objDTO.getId(), objDTO.getName(), objDTO.getEmail());
     }
 }
