@@ -4,6 +4,7 @@ package com.rafaelrosa.springboot3mongoDBmoduleworkshop.config;
 import com.rafaelrosa.springboot3mongoDBmoduleworkshop.domain.Post;
 import com.rafaelrosa.springboot3mongoDBmoduleworkshop.domain.User;
 import com.rafaelrosa.springboot3mongoDBmoduleworkshop.dto.AuthorDTO;
+import com.rafaelrosa.springboot3mongoDBmoduleworkshop.dto.CommentDTO;
 import com.rafaelrosa.springboot3mongoDBmoduleworkshop.repositories.PostRepository;
 import com.rafaelrosa.springboot3mongoDBmoduleworkshop.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,13 @@ public class Instantiation implements CommandLineRunner {
 
         Post post1 = new Post(null, "Trip!!", "Trip to rio!", sdf.parse("21/01/2018"),new AuthorDTO(maria));
         Post post2 = new Post(null, "Good Morning!!", "Arrived!", sdf.parse("22/01/2018"), new AuthorDTO(maria));
+
+        CommentDTO c1 = new CommentDTO("Good trip!", sdf.parse("21/03/2019"), new AuthorDTO(alex));
+        CommentDTO c2 = new CommentDTO("Enjoy it!", sdf.parse("21/03/2019"), new AuthorDTO(bob));
+        CommentDTO c3 = new CommentDTO("Safe and sound!", sdf.parse("22/03/2019"), new AuthorDTO(alex));
+
+        post1.getComments().addAll(Arrays.asList(c1, c2));
+        post2.getComments().addAll(Arrays.asList(c3));
 
         postRepository.saveAll(Arrays.asList(post1, post2));
 
